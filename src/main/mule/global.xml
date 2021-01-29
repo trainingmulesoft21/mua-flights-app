@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="mua-flights-api-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+	<http:request-config name="united_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="ac453ea1-349b-44b7-8aba-6d69f1f4c5b7" basePath="${united.basepath}" >
+		<http:request-connection host="${united.host}" port="${united.port}" />
+	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="c9ec0afc-5296-4091-afb0-6ccd97f1311c" file="config.yaml" />
+	
+	<validation:config name="Validation_Config" doc:name="Validation Config" doc:id="f438bc75-49ea-4ea0-b193-039dad13ec8b" />
+</mule>

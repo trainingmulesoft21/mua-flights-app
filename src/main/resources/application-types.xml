@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="Flight" format="json">
+      <types:shape format="weave" example="examples/flights-example-1.json"><![CDATA[%dw 2.0
+
+type Flight = Array<{|  airline: String,   flightCode: String,   fromAirportCode: String,   toAirportCode: String,   departureDate: String,   emptySeats: Number {"typeId": "int"},   totalSeats: Number {"typeId": "int"},   price: Number {"typeId": "int"},   planeType: String|}> {"example": "[{\\\"airline\\\":\\\"United\\\",\\\"flightCode\\\":\\\"ER38sd\\\",\\\"fromAirportCode\\\":\\\"LAX\\\",\\\"toAirportCode\\\":\\\"SFO\\\",\\\"departureDate\\\":\\\"May 21, 2016\\\",\\\"emptySeats\\\":0,\\\"totalSeats\\\":200,\\\"price\\\":199,\\\"planeType\\\":\\\"Boeing 737\\\"},{\\\"airline\\\":\\\"Delta\\\",\\\"flightCode\\\":\\\"ER38sd\\\",\\\"fromAirportCode\\\":\\\"LAX\\\",\\\"toAirportCode\\\":\\\"SFO\\\",\\\"departureDate\\\":\\\"May 21, 2016\\\",\\\"emptySeats\\\":0,\\\"totalSeats\\\":200,\\\"price\\\":199,\\\"planeType\\\":\\\"Boeing 737\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="United" format="json">
+      <types:shape format="weave" example="examples/example-united.json"><![CDATA[%dw 2.0
+
+type United = {|
+  flights: Array<{|    code: String,     price: Number {"typeId": "int"},     origin: String,     destination: String,     departureDate: String,     planeType: String,     airlineName: String,     emptySeats: Number {"typeId": "int"}  |}>
+|} {"example": "{\\\"flights\\\":[{\\\"code\\\":\\\"ER38sd\\\",\\\"price\\\":400,\\\"origin\\\":\\\"MUA\\\",\\\"destination\\\":\\\"SFO\\\",\\\"departureDate\\\":\\\"2015\\/03\\/20\\\",\\\"planeType\\\":\\\"Boeing 737\\\",\\\"airlineName\\\":\\\"United\\\",\\\"emptySeats\\\":0},{\\\"code\\\":\\\"ER39rk\\\",\\\"price\\\":945,\\\"origin\\\":\\\"MUA\\\",\\\"destination\\\":\\\"SFO\\\",\\\"departureDate\\\":\\\"2015\\/09\\/11\\\",\\\"planeType\\\":\\\"Boeing 757\\\",\\\"airlineName\\\":\\\"United\\\",\\\"emptySeats\\\":54},{\\\"code\\\":\\\"ER39rj\\\",\\\"price\\\":954,\\\"origin\\\":\\\"MUA\\\",\\\"destination\\\":\\\"SFO\\\",\\\"departureDate\\\":\\\"2015\\/02\\/12\\\",\\\"planeType\\\":\\\"Boeing 777\\\",\\\"airlineName\\\":\\\"United\\\",\\\"emptySeats\\\":23}]}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#d2c72f68-ba5a-4137-a649-ee1b3b01cd1b">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="Flight"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b750b54b-60d1-473c-b2f0-8c5d48503264">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="United"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="Flight"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#347d847b-f6a6-4230-9b77-3cbd530be20b">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="Flight"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#441a68b9-71fb-454c-9d4e-764c380ba7aa"/>
+</types:mule>

@@ -1,0 +1,11 @@
+united:
+  host: "ilt.learn.mulesoft.com"
+  port: "80"
+  basepath: "/"
+  protocol: "HTTP"
+
+delta:
+  wsdl: "http://ilt.learn.mulesoft.com/delta?wsdl"
+  service: "TicketServiceService"
+  port: "TicketServicePort"
+  address: "http://ilt.learn.mulesoft.com/delta"
