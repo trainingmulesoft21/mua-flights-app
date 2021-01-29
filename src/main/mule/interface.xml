@@ -103,7 +103,7 @@ output application/json
 output application/json
 ---
 {
-  message: "Flight is created (but not really)"
+  message: "Flight is created (But not really)"
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
